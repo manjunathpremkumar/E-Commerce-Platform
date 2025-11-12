@@ -1,0 +1,32 @@
+# Helm values for Login Service
+service:
+  name: login-service
+  type: ClusterIP
+
+replicaCount: 3 # proposed (previous 2)
+
+image:
+  repository: login-service
+  tag: "1.2.0"
+
+resources:
+  requests:
+    cpu: "500m"
+    memory: "1Gi"
+  limits:
+    cpu: "2000m" # previous 1000m
+    memory: "4Gi" # previous 2Gi
+
+env:
+  - name: JAVA_OPTS
+    value: "-Xms3072m -Xmx3072m" # previous 1536m
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+
+# Notes:
+# - Update values inline or copy the YAML for PR/RFC workflows.
+# - Suggested changes are already reflected; adjust before executing.
