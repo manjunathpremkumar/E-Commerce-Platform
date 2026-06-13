@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 # Helm values for Login Service
 service:
@@ -31,3 +32,45 @@ autoscaling:
 # Notes:
 # - Update values inline or copy the YAML for PR/RFC workflows.
 # - Suggested changes are already reflected; adjust before executing.
+=======
+# Root values — E-Commerce Platform
+global:
+  environment: production
+  cluster: eks-prod-us-east-1
+
+login-service:
+  replicaCount: 2
+  image:
+    repository: ecr.example.com/login-service
+    tag: "1.4.2"
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 1000m
+      memory: 2Gi
+  env:
+    - name: JAVA_OPTS
+      value: "-Xms512m -Xmx1536m -XX:+UseG1GC"
+
+payment-service:
+  replicaCount: 3
+  resources:
+    requests:
+      cpu: 1000m
+      memory: 2Gi
+    limits:
+      cpu: 2000m
+      memory: 4Gi
+
+search-service:
+  replicaCount: 3
+  resources:
+    requests:
+      cpu: 2000m
+      memory: 4Gi
+    limits:
+      cpu: 4000m
+      memory: 8Gi
+>>>>>>> 326e239 (Add sample helm, k8s, and terraform configs)

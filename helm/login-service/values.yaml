@@ -1,0 +1,33 @@
+replicaCount: 2
+
+image:
+  repository: ecr.example.com/login-service
+  tag: "1.4.2"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 1Gi
+  limits:
+    cpu: 1000m
+    memory: 2Gi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 70
+
+env:
+  - name: JAVA_OPTS
+    value: "-Xms512m -Xmx1536m -XX:+UseG1GC"
+  - name: SPRING_PROFILES_ACTIVE
+    value: "prod"
+
+nodeSelector:
+  workload: java-services
