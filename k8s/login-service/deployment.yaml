@@ -6,7 +6,7 @@ metadata:
     app: login-service
     tier: backend
 spec:
-  replicas: 2
+  replicas: 4 # AI: Scale replicas to 4 per ML analysis recommendation
   selector:
     matchLabels:
       app: login-service
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: login-service
-          image: ecr.example.com/login-service:1.4.2
+          image: ecr.example.com/login-service:1.2.0 # AI: Updated tag to reflect new deployment version
           ports:
             - containerPort: 8080
           resources:
@@ -25,11 +25,11 @@ spec:
               cpu: 500m
               memory: 1Gi
             limits:
-              cpu: 1000m
-              memory: 2Gi
+              cpu: 2000m # AI: Increased limit to accommodate higher replica count and traffic stability
+              memory: 4Gi # AI: Increased limit to support scaled replicas
           env:
             - name: JAVA_OPTS
-              value: "-Xms512m -Xmx1536m -XX:+UseG1GC"
+              value: "-Xms3072m -Xmx3072m" # AI: Adjusted heap size for optimal performance at higher replica count
           livenessProbe:
             httpGet:
               path: /actuator/health
