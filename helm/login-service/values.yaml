@@ -1,3 +1,4 @@
+---
 replicaCount: 4 # AI: Scale replicas to 4 per ML analysis recommendation
 
 image:

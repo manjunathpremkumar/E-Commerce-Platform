@@ -1,3 +1,4 @@
+---
 variable "environment" { type = string }
 variable "service_name" { type = string }
 variable "replica_count" { type = number, default = 4 } # AI: Default replicas increased to 4 per ML analysis recommendation
