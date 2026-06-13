@@ -17,7 +17,7 @@ resource "aws_ecs_service" "service" {
   name            = var.service_name
   cluster         = var.ecs_cluster_arn
   task_definition = aws_ecs_task_definition.service.arn
-  desired_count   = var.replica_count
+  desired_count   = var.replica_count # AI: Ensure replica count variable is updated in variables.tf to match new baseline (4)
 
   load_balancer {
     target_group_arn = aws_lb_target_group.service.arn
@@ -30,8 +30,8 @@ resource "aws_ecs_task_definition" "service" {
   family                   = var.service_name
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu                      = var.cpu_request
-  memory                   = var.memory_request
+  cpu                      = var.cpu_request # AI: Ensure CPU request variable is updated in variables.tf to match new baseline (500m)
+  memory                   = var.memory_request # AI: Ensure Memory request variable is updated in variables.tf to match new baseline (1Gi)
   execution_role_arn       = var.execution_role_arn
   task_role_arn            = var.task_role_arn
 

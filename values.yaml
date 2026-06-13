@@ -1,58 +1,23 @@
-<<<<<<< HEAD
----
-# Helm values for Login Service
-service:
-  name: login-service
-  type: ClusterIP
-
-replicaCount: 4 # AI: Scale replicas to 4 per ML analysis recommendation
-
-image:
-  repository: login-service
-  tag: "1.2.0"
-
-resources:
-  requests:
-    cpu: "250m"
-    memory: "1Gi"
-  limits:
-    cpu: "2000m" # AI: Increased limit to accommodate higher replica count and traffic stability
-    memory: "4Gi" # AI: Increased limit to support scaled replicas
-
-env:
-  - name: JAVA_OPTS
-    value: "-Xms3072m -Xmx3072m" # AI: Adjusted heap size for optimal performance at higher replica count
-
-autoscaling:
-  enabled: true
-  minReplicas: 4 # AI: Increased minimum replicas to match new baseline and reduce cold start risk
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 70
-
-# Notes:
-# - Update values inline or copy the YAML for PR/RFC workflows.
-# - Suggested changes are already reflected; adjust before executing.
-=======
 # Root values — E-Commerce Platform
 global:
   environment: production
   cluster: eks-prod-us-east-1
 
 login-service:
-  replicaCount: 2
+  replicaCount: 4 # AI: Scale replicas to 4 per ML analysis recommendation
   image:
     repository: ecr.example.com/login-service
-    tag: "1.4.2"
+    tag: "1.2.0"
   resources:
     requests:
       cpu: 500m
       memory: 1Gi
     limits:
-      cpu: 1000m
-      memory: 2Gi
+      cpu: 2000m # AI: Increased limit to accommodate higher replica count and traffic stability
+      memory: 4Gi # AI: Increased limit to support scaled replicas
   env:
     - name: JAVA_OPTS
-      value: "-Xms512m -Xmx1536m -XX:+UseG1GC"
+      value: "-Xms3072m -Xmx3072m" # AI: Adjusted heap size for optimal performance at higher replica count
 
 payment-service:
   replicaCount: 3
@@ -73,4 +38,3 @@ search-service:
     limits:
       cpu: 4000m
       memory: 8Gi
->>>>>>> 326e239 (Add sample helm, k8s, and terraform configs)

@@ -7,8 +7,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: login-service
-  minReplicas: 2
-  maxReplicas: 6
+  minReplicas: 4 # AI: Increased minimum replicas to match new baseline and reduce cold start risk
+  maxReplicas: 10
   metrics:
     - type: Resource
       resource:
