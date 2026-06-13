@@ -1,3 +1,4 @@
+---
 resource "aws_lb_target_group" "service" {
   name     = "${var.service_name}-${var.environment}"
   port     = 8080
