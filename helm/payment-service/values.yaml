@@ -20,4 +20,4 @@ autoscaling:
 
 env:
   - name: JAVA_OPTS
-    value: "-Xms1g -Xmx3g -XX:+UseG1GC"
+    value: "-Xms2g -Xmx4g -XX:+UseZGC" # AI: Increased heap to match limits and switched GC from G1GC to ZGC

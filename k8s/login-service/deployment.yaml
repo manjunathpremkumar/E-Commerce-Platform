@@ -30,16 +30,4 @@ spec:
               memory: 4Gi # AI: Increased limit to support scaled replicas
           env:
             - name: JAVA_OPTS
-              value: "-Xms3072m -Xmx3072m" # AI: Adjusted heap size for optimal performance at higher replica count
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8080
-            initialDelaySeconds: 60
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /actuator/health/readiness
-              port: 8080
-            initialDelaySeconds: 30
-            periodSeconds: 5
+              value: "-XX:+UseZGC" # AI: Switched GC from G1GC to ZGC to reduce pauses during high TPS bursts

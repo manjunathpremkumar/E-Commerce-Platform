@@ -1,4 +1,3 @@
----
 resource "aws_lb_target_group" "service" {
   name     = "${var.service_name}-${var.environment}"
   port     = 8080
@@ -42,7 +41,10 @@ resource "aws_ecs_task_definition" "service" {
       image = "${var.ecr_repository}:${var.image_tag}"
       portMappings = [{ containerPort = 8080, protocol = "tcp" }]
       environment = [
-        { name = "JAVA_OPTS", value = var.java_opts }
+        { 
+          name = "JAVA_OPTS", 
+          value = "-XX:+UseZGC -Xms1g -Xmx1g -Djava.awt.headless=true" # AI: Switch GC from G1 to ZGC and set heap bounds for Fargate consistency
+        }
       ]
     }
   ])
