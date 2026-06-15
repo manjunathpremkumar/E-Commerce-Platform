@@ -1,4 +1,3 @@
----
 replicaCount: 4 # AI: Scale replicas to 4 per ML analysis recommendation
 
 image:
@@ -26,7 +25,7 @@ autoscaling:
 
 env:
   - name: JAVA_OPTS
-    value: "-Xms3072m -Xmx3072m" # AI: Adjusted heap size for optimal performance at higher replica count
+    value: "-XX:+UseZGC" # AI: Switched GC from G1GC to ZGC to reduce pauses during high TPS bursts
   - name: SPRING_PROFILES_ACTIVE
     value: "prod"
 

@@ -18,7 +18,7 @@ login-service:
       memory: 4Gi # AI: Increased limit to support scaled replicas
   env:
     - name: JAVA_OPTS
-      value: "-Xms3072m -Xmx3072m" # AI: Adjusted heap size for optimal performance at higher replica count
+      value: "-XX:+UseZGC" # AI: Switch GC from G1GC to ZGC per recommendation
 
 payment-service:
   replicaCount: 3
